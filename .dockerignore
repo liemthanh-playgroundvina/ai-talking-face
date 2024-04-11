@@ -1,0 +1,15 @@
+./checkpoints
+./gfpgan
+
+*.jpg
+*.png
+*.mp3
+*.wav
+*.mp4
+*.avi
+*.pth
+*.dat
+*.onnx
+*.tar
+*.safetensor
+*venv*

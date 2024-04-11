@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  worker-ai-talking-face:
+    image: ai-talking-face
+    container_name: worker-ai-talking-face
+    volumes:
+      - .:/app
+      - ./src/config:/usr/local/bin/src/config
+      - app-public-volume-v2:/app/static/public/ai_cover_gen
+    command: bash -c "celery -A ai_celery.router worker -Q ai_talking_face --loglevel=info --pool=gevent --concurrency=1 -E --logfile=logs/celery.log --hostname=celery@ai_talking_face && tail -f /dev/null" &
+#    restart: always
+    networks:
+      - aiservice-net-dev-v2
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
+
+volumes:
+  "app-public-volume-v2":
+    external: true
+
+networks:
+  aiservice-net-dev-v2:
+    external: true
