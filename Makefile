@@ -3,6 +3,7 @@ download_model:
 	./scripts/download_models.sh
 
 config:
+	mkdir -p logs && touch logs/celery.log
 	cp configs/env.example configs/.env
 	# And add params ...
 
