@@ -20,15 +20,16 @@ class Args:
         self.ref_pose = None
         self.checkpoint_dir = './checkpoints'
         self.batch_size = 2
-        self.size = 512  # 256 # Image resolution
+        self.size = 512  # 256/512 # Image resolution
         self.expression_scale = 1.
         self.input_yaw = None
         self.input_pitch = None
         self.input_roll = None
-        self.background_enhancer = "realesrgan"  # "realesrgan"
+        self.enhancer = "gfpgan"  # "gfpgan"
+        self.background_enhancer = None  # "realesrgan"
         self.cpu = False
         self.face3dvis = False
-        self.still = False  # Still face
+        self.still = True  # Still face
         self.preprocess = "extcrop"  # ['crop', 'extcrop', 'resize', 'full', 'extfull']
         self.verbose = False
         self.old_version = False
@@ -38,8 +39,7 @@ class Args:
         self.source_image = None
         self.result_dir = './results'
         self.pose_style = 0  # random.randint(0, 45)
-        print("pose_style: " + str(self.pose_style))
-        self.enhancer = "gfpgan"
+        # print("pose_style: " + str(self.pose_style))
 
         if torch.cuda.is_available() and not self.cpu:
             self.device = "cuda"
