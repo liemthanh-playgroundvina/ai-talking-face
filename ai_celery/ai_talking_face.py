@@ -1,4 +1,5 @@
 import json
+import logging
 import os.path
 from datetime import datetime
 
@@ -46,7 +47,7 @@ def ai_talking_face_task(self, task_id: str, data: bytes, task_request: bytes, f
             'image': {'content_type': 'image/png', 'filename': 'static/public/ai_cover_gen/image.png'},
         }
     """
-    print("============= AI Talking Face task: Started ===================")
+    print(f"============= AI Talking Face task {task_id}: Started ===================")
     try:
         # Load data
         data = json.loads(data)
@@ -104,7 +105,7 @@ def ai_talking_face_task(self, task_id: str, data: bytes, task_request: bytes, f
 
         return
     except Exception as e:
-        print(str(e))
+        logging.getLogger().error(str(e), exc_info=True)
         err = {'code': "500", 'message': "Internal Server Error"}
         Celery_RedisClient.failed(task_id, data, err)
 
