@@ -7,6 +7,7 @@ from ai_celery.celery_app import app
 from configs.env import settings
 from ai_celery.common import Celery_RedisClient, CommonCeleryService
 
+import torch
 from moviepy.editor import VideoFileClip, AudioFileClip, CompositeAudioClip
 
 from inference import predict_talking_face
@@ -81,15 +82,39 @@ def ai_talking_face_task(self, task_id: str, data: bytes, task_request: bytes, f
         }
         response = {"url_file": url_file, "metadata": metadata}
         Celery_RedisClient.success(task_id, data, response)
+
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+            torch.cuda.synchronize()
+
+        import gc;
+        gc.collect()
+
         return
     except ValueError as e:
         err = {'code': "400", 'message': str(e).split('!')[0].strip()}
         Celery_RedisClient.failed(task_id, data, err)
+
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+            torch.cuda.synchronize()
+
+        import gc;
+        gc.collect()
+
         return
     except Exception as e:
         print(str(e))
         err = {'code': "500", 'message': "Internal Server Error"}
         Celery_RedisClient.failed(task_id, data, err)
+
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+            torch.cuda.synchronize()
+
+        import gc;
+        gc.collect()
+
         return
 
 

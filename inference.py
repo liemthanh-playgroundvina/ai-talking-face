@@ -139,26 +139,16 @@ def main(args):
 
 
 def predict_talking_face(driven_audio: str, source_image: str):
-    try:
-        args = Args()
+    args = Args()
 
-        # input param
-        args.driven_audio = driven_audio
-        args.source_image = source_image
-        args.result_dir = './static/public/ai_cover_gen'
+    # input param
+    args.driven_audio = driven_audio
+    args.source_image = source_image
+    args.result_dir = './static/public/ai_cover_gen'
 
-        path_video = main(args)
-        return path_video
-    except Exception as e:
+    path_video = main(args)
 
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
-            torch.cuda.synchronize()
-
-        import gc;
-        gc.collect()
-
-        raise Exception(e)
+    return path_video
 
 
 if __name__ == '__main__':
