@@ -30,7 +30,7 @@ class Args:
         self.cpu = False
         self.face3dvis = False
         self.still = True  # Still face
-        self.preprocess = "extcrop"  # ['crop', 'extcrop', 'resize', 'full', 'extfull']
+        self.preprocess = "full"  # ['crop', 'extcrop', 'resize', 'full', 'extfull']
         self.verbose = False
         self.old_version = False
 
