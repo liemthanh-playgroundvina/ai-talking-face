@@ -31,6 +31,19 @@ class Celery_RedisClient(object):
         data_dump = json.dumps(data)
         redis.set(task_id, data_dump)
 
+    @staticmethod
+    def check_task_removed(task_id: str):
+        json_tasks_removed = redis.get("tasks_removed")
+        if not json_tasks_removed:
+            tasks_removed = []
+            redis.set("tasks_removed", json.dumps(tasks_removed))
+        else:
+            tasks_removed = json.loads(json_tasks_removed)
+
+        if task_id in tasks_removed:
+            tasks_removed.remove(task_id)
+            raise ValueError("Task killed!")
+
 
 class CommonCeleryService(object):
     __instance = None

@@ -55,6 +55,9 @@ def ai_talking_face_task(self, task_id: str, data: bytes, task_request: bytes, f
         file = json.loads(file)
         Celery_RedisClient.started(task_id, data)
 
+        # Check task removed
+        Celery_RedisClient.check_task_removed(task_id)
+
         # Request
         voice_path = file.get('audio_voice')['filename'].split('/')[-1]
         voice_path = os.path.join("/app/static/public/ai_cover_gen", voice_path)
