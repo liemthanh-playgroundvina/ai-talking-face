@@ -32,6 +32,9 @@ cmd-image:
 cmd-worker:
 	docker compose exec worker-ai-talking-face /bin/bash
 
+log-worker:
+	cat logs/celery.log
+
 # check:
 #	printenv LD_LIBRARY_PATH
 #	python
