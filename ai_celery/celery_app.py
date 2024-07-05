@@ -13,7 +13,7 @@ app.config_from_object({
     'task_always_eager': False,
     'broker_transport_options': {
         'visibility_timeout': 3600,
-        'max_retries': 3,
+        'max_retries': 5,
         'interval_start': 0,
         'interval_step': 0.2,
         'interval_max': 0.5,
