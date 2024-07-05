@@ -12,7 +12,7 @@ redis==3.5.3
 Cython==0.29.21
 pydub==0.25.1
 gevent
-eventlet
+#eventlet
 boto3==1.26.148
 ########################################################################
 # # Sadtalker
@@ -37,5 +37,5 @@ gradio
 gfpgan
 av
 safetensors
-moviepy==1.0.2
+moviepy==1.0.3
 realesrgan
