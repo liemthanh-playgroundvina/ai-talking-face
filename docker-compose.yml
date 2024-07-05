@@ -8,7 +8,7 @@ services:
       - .:/app
       - ./src/config:/usr/local/bin/src/config
       - app-public-volume-v2:/app/static/public/ai_cover_gen
-    command: bash -c "celery -A ai_celery.router worker -Q ai_talking_face --loglevel=info --pool=prefork --concurrency=1 -E --logfile=logs/celery.log --hostname=celery@ai_talking_face && tail -f /dev/null" &
+    command: bash -c "celery -A ai_celery.router worker -Q ai_talking_face --loglevel=info --pool=gevent --concurrency=1 -E --logfile=logs/celery.log --hostname=celery@ai_talking_face && tail -f /dev/null" &
     restart: always
     networks:
       - aiservice-net-dev-v2
