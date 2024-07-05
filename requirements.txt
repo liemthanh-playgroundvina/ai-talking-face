@@ -37,5 +37,5 @@ gradio
 gfpgan
 av
 safetensors
-moviepy
+moviepy==1.0.2
 realesrgan
