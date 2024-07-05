@@ -126,24 +126,24 @@ def generate(image, audio, background_audio):
     # Face Talking predict
     path_predicted = predict_talking_face(audio, image)
 
-    # # Add background audio
-    # video_clip = VideoFileClip(path_predicted)
-    # audio_clip = AudioFileClip(background_audio)
-    #
-    # composite_audio = CompositeAudioClip([video_clip.audio, audio_clip])
-    # video_clip.audio = composite_audio
-    #
-    # now = datetime.now()
-    # formatted_time = now.strftime(f"%Y_%m_%d_%H_%M_%S_{now.microsecond / 1000:.4f}")
-    # filename = formatted_time.replace('.', '_')
-    # path_final = os.path.join("./static/public/ai_cover_gen", f"{filename}.mp4")
-    #
-    # video_clip.write_videofile(
-    #     path_final,
-    #     codec='libx264',
-    #     audio_codec='aac',
-    #     temp_audiofile='temp-audio.m4a',
-    #     remove_temp=True
-    # )
+    # Add background audio
+    video_clip = VideoFileClip(path_predicted)
+    audio_clip = AudioFileClip(background_audio)
 
-    return path_predicted  #path_final
+    composite_audio = CompositeAudioClip([video_clip.audio, audio_clip])
+    video_clip.audio = composite_audio
+
+    now = datetime.now()
+    formatted_time = now.strftime(f"%Y_%m_%d_%H_%M_%S_{now.microsecond / 1000:.4f}")
+    filename = formatted_time.replace('.', '_')
+    path_final = os.path.join("./static/public/ai_cover_gen", f"{filename}.mp4")
+
+    video_clip.write_videofile(
+        path_final,
+        codec='libx264',
+        audio_codec='aac',
+        temp_audiofile='temp-audio.m4a',
+        remove_temp=True
+    )
+
+    return path_final
