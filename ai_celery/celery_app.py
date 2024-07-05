@@ -19,7 +19,7 @@ app.config_from_object({
         'interval_max': 0.5,
     },
     'worker_cancel_long_running_tasks_on_connection_loss': True,
-    'broker_heartbeat': 30,
-    'broker_connection_timeout': 60,
+    'broker_heartbeat': 60,
+    'broker_connection_timeout': 60*10,
     'broker_pool_limit': None,
 })
